@@ -1,9 +1,12 @@
-// Import from the new unified SDK
 import { GoogleGenAI } from "@google/genai";
 import { NextResponse } from "next/server";
+import { ensureGoogleCredentials } from "../../lib/auth";
 
 export async function POST(req: Request) {
   try {
+    // Ensure credentials are available (for Vercel)
+    await ensureGoogleCredentials();
+
     const { query } = await req.json();
 
     // Initialize the new unified client

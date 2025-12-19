@@ -1,15 +1,52 @@
 import { GoogleGenAI } from "@google/genai";
 import { NextResponse } from "next/server";
-import { ensureGoogleCredentials } from "../../lib/auth";
+import { writeFile } from "fs/promises";
+import path from "path";
+import os from "os";
+
+export const dynamic = 'force-dynamic';
+
+async function ensureGoogleCredentials() {
+  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    return;
+  }
+
+  const credentialsJson = process.env.GCP_CREDENTIALS_JSON;
+  if (!credentialsJson) {
+    console.warn("GCP_CREDENTIALS_JSON not found.");
+    return;
+  }
+
+  const tmpDir = os.tmpdir();
+  const filePath = path.join(tmpDir, "google-credentials.json");
+
+  try {
+    let content = credentialsJson;
+    try {
+      JSON.parse(content);
+    } catch {
+      try {
+        content = Buffer.from(credentialsJson, 'base64').toString('utf-8');
+        JSON.parse(content);
+      } catch (e) {
+        console.error("Failed to parse GCP_CREDENTIALS_JSON");
+        return;
+      }
+    }
+
+    await writeFile(filePath, content);
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = filePath;
+  } catch (error) {
+    console.error("Failed to write credentials file:", error);
+  }
+}
 
 export async function POST(req: Request) {
   try {
-    // Ensure credentials are available (for Vercel)
     await ensureGoogleCredentials();
 
     const { query } = await req.json();
 
-    // Initialize the new unified client
     const ai = new GoogleGenAI({
       vertexai: true,
       project: process.env.GOOGLE_CLOUD_PROJECT,
@@ -19,9 +56,8 @@ export async function POST(req: Request) {
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          // Use ai.models.generateContentStream for streaming
           const result = await ai.models.generateContentStream({
-            model: "gemini-3-flash-preview",
+            model: "gemini-1.5-flash-002",
             contents: [{
               role: "user",
               parts: [{
@@ -49,10 +85,7 @@ export async function POST(req: Request) {
             }
           });
 
-          // Iterate through the stream
           for await (const chunk of result) {
-            // Get text content if available
-            // safe cast to any to avoid TS issues with the SDK types for now if they are inconsistent
             const c = chunk as any;
             let text = "";
             if (typeof c.text === 'function') {
@@ -67,14 +100,12 @@ export async function POST(req: Request) {
               controller.enqueue(new TextEncoder().encode(text));
             }
 
-            // Check for grounding metadata (sources) in this chunk
             const groundingMetadata = c.candidates?.[0]?.groundingMetadata;
             if (groundingMetadata) {
               const sourcesJson = JSON.stringify({ sources: groundingMetadata.groundingChunks || [] });
               controller.enqueue(new TextEncoder().encode(`\n\n__JSON_START__\n${sourcesJson}\n__JSON_END__`));
             }
           }
-
           controller.close();
         } catch (error: any) {
           console.error("Stream Error:", error);

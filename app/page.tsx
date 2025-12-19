@@ -159,7 +159,11 @@ export default function ChiruSearch() {
       if (err.name === 'AbortError') {
         console.log('Search aborted');
       } else {
-        console.error(err);
+        console.error("Search error:", err);
+        // Ensure the UI shows something went wrong instead of disappearing
+        if (!data) {
+          setData({ answer: "An error occurred while searching. Please check your connection or quota and try again.", sources: [] });
+        }
       }
     } finally {
       // Only complete loading if not aborted (or if explicitly stopped, loading is handled in stopGeneration)

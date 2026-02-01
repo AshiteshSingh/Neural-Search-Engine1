@@ -1,0 +1,7 @@
+Error: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+Stack: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at parseJSONFromBytes (node:internal/deps/undici/undici:6433:19)
+    at successSteps (node:internal/deps/undici/undici:6414:27)
+    at readAllBytes (node:internal/deps/undici/undici:5380:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)

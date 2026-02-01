@@ -1,32 +1,104 @@
 {
-  "name": "garion-perplexo",
+  "name": "neural-scholar-engine",
   "version": "0.1.0",
   "private": true,
+  "main": "electron/main.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "next start -p 8080",
+    "lint": "next lint",
+    "electron:dev": "concurrently -k \"cross-env BROWSER=none npm run dev\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron:build": "npm run build && node scripts/copy-static.js && node scripts/prepare-appx-icons.js && electron-builder && node scripts/finalize-build.js"
+  },
+  "author": "NeuralEngine Team",
+  "build": {
+    "appId": "com.neuralengine.app",
+    "productName": "NeuralScholarEngine",
+    "asar": true,
+    "files": [
+      "electron/**/*",
+      "package.json",
+      "!node_modules/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": ".next/standalone",
+        "to": "app_srv",
+        "filter": [
+          "**/*"
+        ]
+      },
+      "scripts/copy-static.js",
+      ".env.local"
+    ],
+    "npmRebuild": false,
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "public/neural.png"
+    },
+    "nsis": {
+      "shortcutName": "Neural Scholar Engine"
+    },
+    "appx": {
+      "identityName": "SearchMaker.NeuralScholarEngine",
+      "publisher": "CN=AE9A46D8-4EC8-4357-96E3-B4BB2E1DB37A",
+      "publisherDisplayName": "SearchMaker",
+      "displayName": "Neural Scholar Engine",
+      "applicationId": "NeuralScholarEngine"
+    },
+    "protocols": [
+      {
+        "name": "NeuralScholarEngine",
+        "schemes": [
+          "neuralscholar"
+        ]
+      }
+    ]
   },
   "dependencies": {
-    "@google/genai": "^1.34.0",
+    "@anthropic-ai/sdk": "^0.71.2",
+    "@auth/firebase-adapter": "^2.11.1",
+    "@e2b/code-interpreter": "^2.3.3",
+    "@google-cloud/vertexai": "^1.10.0",
+    "@google/genai": "^1.39.0",
+    "@huggingface/inference": "^4.13.5",
     "@tailwindcss/typography": "^0.5.19",
+    "bcryptjs": "^3.0.3",
+    "cheerio": "^1.1.2",
+    "firebase-admin": "^13.6.0",
+    "groq-sdk": "^0.37.0",
     "lucide-react": "^0.562.0",
     "next": "16.0.10",
+    "next-auth": "^5.0.0-beta.30",
+    "openai": "^6.15.0",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-markdown": "^10.1.0",
+    "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
-    "tailwindcss-animate": "^1.0.7"
+    "resend": "^6.6.0",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^4.2.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^33.0.0",
+    "electron-builder": "^26.4.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.10",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wait-on": "^9.0.3"
   }
 }

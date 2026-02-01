@@ -15,14 +15,98 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #000000;
     --foreground: #ededed;
   }
 }
 
 body {
-  background-color: #000000;
-  /* Deep black theme */
-  color: #f4f4f5;
+  background-color: #000000; /* Black Theme */
+  color: #ededed;
   font-family: 'Inter', sans-serif;
+}
+
+/* SLEEK SCROLLBAR STYLING */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #27272a;
+    /* zinc-800 */
+    border-radius: 10px;
+    transition: background 0.2s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3f3f46;
+    /* zinc-700 */
+  }
+
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #27272a transparent;
+  }
+}
+
+/* REMOVE DEFAULT PROSE BACKTICKS */
+.prose :where(code):not(:where([class~="not-prose"] *))::before {
+  content: "" !important;
+}
+
+.prose :where(code):not(:where([class~="not-prose"] *))::after {
+  content: "" !important;
+}
+
+/* METEOR FALLING ANIMATION */
+@keyframes meteor {
+  0% {
+    transform: rotate(215deg) translateX(0);
+    opacity: 0;
+  }
+
+  1% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotate(215deg) translateX(-150vh);
+    /* Move further down to ensure covering full screen */
+    opacity: 0;
+  }
+}
+
+.animate-meteor {
+  animation: meteor linear forwards;
+}
+
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-x {
+  background-size: 200% auto;
+  animation: gradient-x 3s linear infinite;
 }

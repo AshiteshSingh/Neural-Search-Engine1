@@ -20,14 +20,21 @@ Neural Scholar Engine bridges the gap between traditional search engines and AI 
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="imagesgit/Screenshot%202026-02-01%20135122.png" width="45%" />
-  <img src="imagesgit/Screenshot%202026-02-01%20135201.png" width="45%" />
-  <img src="imagesgit/Screenshot%202026-02-01%20135220.png" width="45%" />
-  <img src="imagesgit/Screenshot%202026-02-01%20135336.png" width="45%" />
-  <img src="imagesgit/Screenshot%202026-02-01%20135411.png" width="45%" />
-  <img src="imagesgit/Screenshot%202026-02-01%20135602.png" width="45%" />
-  <img src="imagesgit/Screenshot%202026-02-01%20135653.png" width="45%" />
-  <img src="imagesgit/Screenshot%202026-02-01%20135716.png" width="45%" />
+  <img src="imagesgit/Screenshot%202026-02-01%20135122.png" width="100%" alt="Neural Scholar Interface" />
+  <br/><br/>
+  <img src="imagesgit/Screenshot%202026-02-01%20135201.png" width="100%" alt="Search Results" />
+  <br/><br/>
+  <img src="imagesgit/Screenshot%202026-02-01%20135220.png" width="100%" alt="Video Integration" />
+  <br/><br/>
+  <img src="imagesgit/Screenshot%202026-02-01%20135336.png" width="100%" alt="Academic Mode" />
+  <br/><br/>
+  <img src="imagesgit/Screenshot%202026-02-01%20135411.png" width="100%" alt="Physics Mode" />
+  <br/><br/>
+  <img src="imagesgit/Screenshot%202026-02-01%20135602.png" width="100%" alt="Computer Science Mode" />
+  <br/><br/>
+  <img src="imagesgit/Screenshot%202026-02-01%20135653.png" width="100%" alt="Deep Research" />
+  <br/><br/>
+  <img src="imagesgit/Screenshot%202026-02-01%20135716.png" width="100%" alt="Mobile View" />
 </div>
 
 ---

@@ -7,7 +7,8 @@
 Neural Scholar Engine bridges the gap between traditional search engines and AI assistants. It offers real-time web access, multi-step reasoning ("Chain of Thought"), and specialized modes for academic subjects.
 
 ### Key Features
-*   **Deep Research Mode**: Breaks down complex queries into multiple search steps to synthesize a comprehensive answer.
+*   **High Accuracy & Precision**: Delivers trustworthy, fact-based answers by cross-referencing multiple sources, ensuring information is highly accurate and reliable.
+*   **Rich Media Integration**: Intelligently searches and curates the most relevant images and videos to visually enhance answers and provide verified context.
 *   **Real-time Streaming**: Visualizes the AI's "thinking" process with granular status updates (e.g., "Searching Google...", "Reading sources...").
 *   **Academic Modes**: Specialized agents for:
     *   **Physics (ISC Class 11/12)**: Solves numerical problems with strict 5-step CoT methodology.

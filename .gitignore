@@ -44,3 +44,10 @@ next-env.d.ts
 
 /dist
 /electron/dist
+
+# User requested ignores
+/auth.ts
+/auth.config.ts
+agent_debug_error.log
+agent_debug_info.log
+agent_final_error.log

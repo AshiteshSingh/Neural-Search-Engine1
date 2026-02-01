@@ -21,7 +21,7 @@ Neural Scholar Engine bridges the gap between traditional search engines and AI 
 
 ## 🛠️ Tech Stack
 *   **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
-*   **AI Models**: Google Gemini 1.5 Pro & Flash (via Vertex AI / AI Studio)
+*   **AI Models**: Google Gemini 3 Pro & Flash (via Vertex AI / AI Studio)
 *   **Styling**: Tailwind CSS, Lucide Icons
 *   **Auth**: Auth.js (NextAuth)
 *   **Search**: Google Custom Search JSON API, YouTube Data API
